@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+   
+  }
+
+main {
+    flex: 1 0 auto;
+  }
+  
+.select{
+	width: 200px;
+	height: 30px;
+	margin-top: 15px;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.login{
+	color: white;
+}
+  
+.btnLogin{
+	margin-top: 5px;
+	
+}
+
+.nomeUsuario{
+	color: white;
+}
+
+
+
+.error{
+	color: red;
+}
+
+.total{
+	display: flex;
+	float: right;
+	background-color: green;
+	width: 350px;
+
+}
+
+.redIcon {color:rgb(255, 0, 0);}
+
+.d-block{
+	
+	height: 300px;
+}
+
+.card-img-top{
+	max-height: 200px;
+}
+
+.card1{
+	margin-top: 100px;
+}
+
+.card2{
+	margin-top: 100px;
+}
+
+.card3{
+	margin-top: 100px;
+}
+
+.carousel{
+	max-width: 800px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+
+
+
+
+
+
+
+

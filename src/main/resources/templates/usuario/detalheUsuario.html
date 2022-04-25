@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}">
+
+<head>
+	<title>Meus Dados</title>
+	<script type="text/javascript" th:src="@{/js/jquery.validate.js}" src="/js/jquery.validate.js"></script>
+	<script type="text/javascript" th:src="@{/js/messages_pt_BR.js}" src="/js/messages_pt_BR.js"></script>
+	<script type="text/javascript" th:src="@{/js/formUsuario.js}" src="/js/formUsuario.js"></script>
+	<script type="text/javascript" th:src="@{/js/formUsuarioValidacao.js}" src="/js/formUsuarioValidacao.js"></script>
+</head>
+
+<body>
+
+	<!-- Page Content -->
+	<div class="container" layout:fragment="corpo">
+
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2 class="display-6 text-center table-mes">Meus Dados</h2>
+					</div>
+
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Sobrenome</th>
+							<th>E-mail</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="usuario :${usuario}">
+							<td th:text="${usuario.nome}"></td>
+							<td th:text="${usuario.sobrenome}"></td>
+							<td th:text="${usuario.email}"></td>
+							<td><a th:href="@{/home/listarUsuario/(id=${usuario.id})}"
+									class="eBtn"><i
+										class="material-icons">edit</i></a>
+								<a th:href="@{/home/deletarUsuario/{id}(id=${usuario.id})}"
+									class="delBtn"><i
+										class="material-icons redIcon">delete</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="myForm">
+			<form th:action="@{/home/editarUsuario}" method="POST" id="formUsuario">
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<input hidden name="id" id="id" value="" />
+								<div class="form-group">
+									<label for="nome" class="form-control-label">Nome</label>
+									<input type="text" class="form-control" name="nome" id="nome" value="" />
+								</div>
+								<div class="form-group">
+									<label for="tipo" class="form-control-label">Sobrenome</label>
+									<input type="text" class="form-control" name="sobrenome" id="sobrenome" value="" />
+								</div>
+								<div class="form-group">
+									<label for="email" class="form-control-label">E-mail</label>
+									<input type="email" class="form-control" name="email" id="email" value="" />
+								</div>
+								<div class="form-group">
+									<label for="senha" class="form-control-label">Senha</label>
+									<input type="password" class="form-control" name="senha" id="senha" value="" />
+								</div>
+								<div class="form-group">
+									<label for="csenha" class="form-control-label">Confirma senha</label>
+									<input type="password" class="form-control" name="csenha" id="csenha" value="" />
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Cancelar</button>
+								<input type="submit" class="btn btn-primary" value="Salvar" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true"></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="alert alert-danger">
+							Tem certeza que deseja deletar?
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<a href="" class="btn btn-danger" id="delRef">Deletar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

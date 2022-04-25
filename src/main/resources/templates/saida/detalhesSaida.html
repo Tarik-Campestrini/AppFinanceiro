@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}">
+
+<head>
+
+	<title>Seja bem vindo!</title>
+	<script type="text/javascript" th:src="@{/js/jquery.validate.js}" src="/js/jquery.validate.js"></script>
+	<script type="text/javascript" th:src="@{/js/messages_pt_BR.js}" src="/js/messages_pt_BR.js"></script>
+	<script type="text/javascript" th:src="@{/js/formSaida.js}" src="/js/formSaida.js"></script>
+	<script type="text/javascript" th:src="@{/js/formSaidaValidacao.js}" src="/js/formSaidaValidacao.js"></script>
+	<script type="text/javascript" th:src="@{/js/mascara.js}" src="/js/mascara.js"></script>
+
+
+</head>
+
+<body>
+
+	<!-- Page Content -->
+	<div class="container" layout:fragment="corpo">
+		<div class="container text-center">
+			<select name="mes_id" id="mes1" class="select">
+				<option>Selecione o Mês</option>
+				<option value="01">Janeiro</option>
+				<option value="02">Fevereiro</option>
+				<option value="03">Março</option>
+				<option value="04">Abril</option>
+				<option value="05">Maio</option>
+				<option value="06">Junho</option>
+				<option value="07">Julho</option>
+				<option value="08">Agosto</option>
+				<option value="09">Setembro</option>
+				<option value="10">Outubro</option>
+				<option value="11">Novembro</option>
+				<option value="12">Dezembro</option>
+			</select>
+		</div>
+
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-2">
+						<button class="btn btn-primary nBtn float-start">Adicionar</button>
+					</div>
+					<div class="col-sm-8">
+						<h2 class="display-6 text-center table-mes">Saidas referente ao mês de <span
+								th:text="${mes.mes}"></span>
+						</h2>
+					</div>
+					
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Descrição</th>
+							<th>Tipo</th>
+							<th>Valor</th>
+							<th>Data</th>
+							<th>Status</th>
+							<th colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="saida :${saida}">
+							<td th:text="${saida.descricao}"></td>
+							<td th:text="${saida.tipo}"></td>
+							<td th:text="${saida.valor}"></td>
+							<td th:text="${saida.data}"></td>
+							<td th:text="${saida.status}"></td>
+							<td><a th:href="@{/home/listarSaida/(id=${saida.id})}" class="eBtn"><i
+										class="material-icons">edit</i></a>
+								<a th:href="@{/home/deletarSaida/{id}(id=${saida.id})}" class="delBtn"><i
+										class="material-icons redIcon">delete</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+		<div class="myForm">
+			<form th:action="@{/home/salvarSaida}" method="POST" id="formSaida">
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Salvar/Atualizar</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<input hidden name="id" id="id" value="" />
+								<div class="form-group">
+									<label for="descricao" class="form-control-label">Descrição</label>
+									<input type="text" class="form-control" name="descricao" id="descricao" />
+								</div>
+								<div class="form-group">
+									<label for="tipo" class="form-control-label">Tipo</label>
+									<input type="text" class="form-control" name="tipo" id="tipo" value="" />
+								</div>
+								<div class="form-group">
+									<label for="valor" class="form-control-label">Valor</label>
+									<input type="text" onKeyUp="mascaraMoeda(this, event)" class="form-control"
+										name="valor" id="valor" value="" />
+								</div>
+								<div class="form-group">
+									<label for="data" class="form-control-label">Data</label>
+									<input type="date" class="form-control" name="data" id="data" value="" />
+								</div>
+								<div class="form-group">
+									<label for="status" class="form-control-label">Status</label>
+									<input type="text" class="form-control" name="status" id="status" value=""
+										required />
+								</div>
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Cancelar</button>
+								<input type="submit" class="btn btn-primary" value="Salvar" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="myForm2">
+			<form th:action="@{/home/salvarSaida}" method="POST" id="formSaida">
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Salvar/Atualizar</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="descricao" class="form-control-label">Descrição</label>
+									<input type="text" class="form-control" name="descricao" id="descricao" />
+								</div>
+								<div class="form-group">
+									<label for="tipo" class="form-control-label">Tipo</label>
+									<input type="text" class="form-control" name="tipo" id="tipo" value="" />
+								</div>
+								<div class="form-group">
+									<label for="valor" class="form-control-label">Valor</label>
+									<input type="text" onKeyUp="mascaraMoeda(this, event)" class="form-control"
+										name="valor" id="valor" value="" />
+								</div>
+								<div class="form-group">
+									<label for="data" class="form-control-label">Data</label>
+									<input type="date" class="form-control" name="data" id="data" value="" />
+								</div>
+								<div class="form-group">
+									<label for="status" class="form-control-label">Status</label>
+									<input type="text" class="form-control" name="status" id="status" value=""
+										required />
+								</div>
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Cancelar</button>
+								<input type="submit" class="btn btn-primary" value="Salvar" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true"></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="alert alert-danger">
+							Tem certeza que deseja deletar?
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<a href="" class="btn btn-danger" id="delRef">Deletar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+
+
+
+</body>
+
+</html>
